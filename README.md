@@ -371,7 +371,8 @@ A: User account automation violates Discord's Terms of Service. Use at your own 
 A: No, this requires Windows-specific APIs that don't exist on other operating systems.
 
 **Q: Can I run multiple accounts?**
-A: Yes, but each instance needs a different port number. Run one server with port 5000, another with port 5001, etc.
+A: Yes, but each instance needs a different port number. Run one server with port 5000, another with port 5001, etc. (Change the ports in every file that mentions it, such as the main python script and the extension files.)
+*Though I haven't tested, nor do I have a way to test since Discord only allows one instance of itself open.*
 
 **Q: What if I close the Python window?**
 A: Your RPC status freezes at the last update and then stops. It won't update again until you restart the server. 
