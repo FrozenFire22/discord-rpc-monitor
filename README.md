@@ -383,6 +383,21 @@ A: Yes, Discord must be running for RPC to display your status. The RPC server c
 A: The RPC system uses a custom Discord bot that I created. Because of this bot setup, the app name in the RPC cannot be changed. This doesn't affect any functionality.
 
 ---
+## Acknowledgements
+
+This project utilizes the following open-source libraries and services:
+
+- **[pypresence](https://github.com/qwertyquerty/pypresence)** - Discord Rich Presence library for Python
+- **[Flask](https://flask.palletsprojects.com/)** - Lightweight web framework for the local server
+- **[Flask-CORS](https://flask-cors.readthedocs.io/)** - Cross-Origin Resource Sharing for Flask
+- **[Requests](https://requests.readthedocs.io/)** - HTTP library for API communication
+- **[pywin32](https://github.com/pywin32/pywin32)** - Windows API access for window monitoring
+- **[psutil](https://github.com/giampaolo/psutil)** - System and process utilities
+- **[Tampermonkey](https://www.tampermonkey.net/)** - Userscript manager for browser automation
+- **[Discord API](https://discord.com/developers)** - Rich Presence and user profile endpoints
+
+Special thanks to the open-source community for creating these amazing tools.
+---
 
 ## License
 
