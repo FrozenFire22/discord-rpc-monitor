@@ -1,0 +1,6 @@
+pypresence==5.0
+flask==3.0.0
+flask-cors==4.0.0
+requests==2.31.0
+pypiwin32==300
+psutil==5.9.8
