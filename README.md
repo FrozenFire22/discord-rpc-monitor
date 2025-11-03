@@ -337,19 +337,24 @@ Then save the file and restart the Python server for the change to take effect.
 
 ## Troubleshooting
 
-**Server won't connect to Discord**\n
+**Server won't connect to Discord**
+
 Make sure the Discord Desktop application is running before starting the Python server. The Discord app must be fully loaded and in the system tray. Check that you're not already running another RPC application on the same port.
 
 **YouTube not tracking**
+
 Refresh the YouTube page with F5. Verify the browser extension is enabled in your extensions menu. Check that Tampermonkey is installed and the youtube-chapter-rpc.js script is active. If still not working, restart the Python server.
 
 **Discord channels not showing**
+
 Restart the Python server. For Desktop app, make sure Discord window is visible and has been focused at least once since starting the server. For Discord Web, reload discord.com.
 
 **Chapters not displaying**
+
 Not all YouTube videos contain chapter information. Test with a video known to have chapters. Verify Tampermonkey is installed and the script is active. Check the Python console output for errors.
 
 **CPU usage too high**
+
 Increase the polling interval by changing `time.sleep(0.1)` to `time.sleep(0.5)` or higher. This reduces how often the system checks for changes. Alternatively, disable auto-bio updates by commenting out the `server.start_bio_updater()` line.
 
 ---
