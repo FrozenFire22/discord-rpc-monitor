@@ -1,10 +1,10 @@
 """
-Discord RPC Universal Monitor - FINAL COMPLETE VERSION
+Discord RPC Universal Monitor
 - YouTube with chapters and homepage detection
 - Discord blocklist (Web + PC app with native window detection)
-- Ultra-fast Discord PC channel detection
+- Fast Discord PC channel detection
 - Auto bio updates
-- Discord ALWAYS updates on channel change (web AND app)
+- Discord updates on channel change (web AND app)
 """
 
 from flask import Flask, request, jsonify
@@ -39,11 +39,12 @@ BLOCKED_APPS = [
     'notepad.exe', 'explorer.exe',
 ]
 
-# DISCORD CHANNEL/SERVER BLOCKLIST - CUSTOMIZE HERE
+# DISCORD CHANNEL/SERVER BLOCKLIST
 BLOCKED_DISCORD = [
     'idk',
     'random',
     'spam',
+    '#nsfw',
 ]
 
 
@@ -444,7 +445,7 @@ class DiscordRPCServer:
             print(f"❌ Error: {e}")
 
     def monitor_loop(self):
-        # ULTRA FAST polling - 100ms
+        # FAST polling - 100ms
         while True:
             try:
                 self.update_rpc()
