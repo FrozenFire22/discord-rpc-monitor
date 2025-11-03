@@ -134,6 +134,7 @@ Discord Status Display:
 **Discord Bio Example**
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 Nov 3 - 10:49 AM ( <t:1730607000:t> )
 If the clock stops, I'm probably touching grass or sleeping.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
