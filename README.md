@@ -396,7 +396,6 @@ This project utilizes the following open-source libraries and services:
 - **[Tampermonkey](https://www.tampermonkey.net/)** - Userscript manager for browser automation
 - **[Discord API](https://discord.com/developers)** - Rich Presence and user profile endpoints
 
-Special thanks to the open-source community for creating these amazing tools.
 ---
 
 ## License
