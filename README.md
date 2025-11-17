@@ -160,7 +160,12 @@ Download from [Releases](https://github.com/XamDaniel-AA/discord-rpc-monitor/rel
 
 Open command prompt in the extracted folder and run:
 ```bash
-pip install -r requirements.txt
+pip install pypresence
+pip install flask
+pip install flask-cors
+pip install requests
+pip install pypiwin32
+pip install psutil
 ```
 
 This installs all required packages: pypresence (Discord RPC), Flask (web server), requests (API calls), and others.
@@ -199,7 +204,7 @@ Make sure the Discord Desktop application is running and fully loaded. Keep it o
 
 ### 8. Run Python Server
 
-Open command prompt and run:
+Open command prompt and run (or simply just double click on the python script file):
 ```bash
 python discord-rpc-universal.py
 ```
@@ -244,7 +249,6 @@ Edit the `BLOCKED_APPS` section:
 BLOCKED_APPS = [
     'Telegram.exe',
     'WhatsApp.exe',
-    'obsidian.exe',
     'notepad.exe',
 ]
 ```
