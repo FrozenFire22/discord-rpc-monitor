@@ -1,12 +1,3 @@
-"""
-Discord RPC Universal Monitor
-- YouTube with chapters and homepage detection
-- Discord blocklist (Web + PC app with native window detection)
-- Fast Discord PC channel detection
-- Auto bio updates
-- Discord updates on channel change (web AND app)
-"""
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pypresence import Presence
@@ -25,7 +16,6 @@ DISCORD_TOKEN = "YOUR_TOKEN_HERE"
 flask_app = Flask(__name__)
 CORS(flask_app)
 
-# WEBSITE BLOCKLIST
 BLOCKED_SITES = [
     'facebook.com', 'instagram.com', 'twitter.com', 'x.com',
     'tiktok.com', 'reddit.com', 'snapchat.com', 'linkedin.com',
@@ -39,7 +29,6 @@ BLOCKED_APPS = [
     'notepad.exe', 'explorer.exe',
 ]
 
-# DISCORD CHANNEL/SERVER BLOCKLIST
 BLOCKED_DISCORD = [
     'idk',
     'random',
@@ -156,7 +145,6 @@ class DiscordRPCServer:
             for win in discord_wins:
                 title = win['title']
                 
-                # Discord title format: "Channel Name — Server Name — Discord"
                 if '—' in title:
                     parts = title.split('—')
                     if len(parts) >= 2:
@@ -164,7 +152,6 @@ class DiscordRPCServer:
                         if context and context.lower() != 'discord':
                             return context
                 
-                # Fallback
                 context = title.replace(' — Discord', '').replace('Discord', '').strip()
                 if context:
                     return context
@@ -210,7 +197,6 @@ class DiscordRPCServer:
         if self.is_browser_window(exe_name):
             return None
 
-        # DISCORD PC APP - Direct window title detection
         if exe_name.lower() == 'discord.exe':
             discord_context = self.get_active_discord_context()
             
@@ -245,7 +231,6 @@ class DiscordRPCServer:
 
         raw = self.clean(title.replace('\n', ' '))
 
-        # YOUTUBE VIDEO
         if 'youtube.com' in hostname:
             if 'watch' in url and currentTime != '0:00':
                 raw = raw.replace(' - YouTube', '').strip()
@@ -277,7 +262,6 @@ class DiscordRPCServer:
                     'large_text': 'On YouTube'
                 }
 
-        # YOUTUBE MUSIC
         elif 'music.youtube.com' in hostname:
             if currentTime != '0:00':
                 raw = raw.replace(' - YouTube Music', '').strip()
@@ -309,12 +293,10 @@ class DiscordRPCServer:
                     'large_text': 'On YouTube Music'
                 }
 
-        # DISCORD WEB
         elif 'discord.com' in hostname:
             t = raw.replace('[discord.com]', '').replace('Discord |', '').replace('|', ' — ')
             t = t.replace('— Discord', '').replace(' - Discord', '').strip()
             
-            # Extract channel from title if available
             channel_info = self.clean(t[:100])
             
             return {
@@ -325,7 +307,6 @@ class DiscordRPCServer:
                 'large_text': 'On Discord Web'
             }
 
-        # SPOTIFY
         elif 'spotify.com' in hostname:
             t = self.strip_parens(raw)
             return {
@@ -336,7 +317,6 @@ class DiscordRPCServer:
                 'large_text': 'Listening to Spotify'
             }
 
-        # OTHER SITES
         else:
             site_name = hostname.split('.')[0].capitalize()
             t = raw.replace(f' - {site_name}', '')
@@ -357,7 +337,6 @@ class DiscordRPCServer:
     def get_active_activity(self):
         current_time = time.time()
         
-        # Check active window FIRST
         window_title, exe_name = self.get_active_window_info()
         if window_title and exe_name and not self.is_browser_window(exe_name):
             window_activity = self.build_activity_from_window(window_title, exe_name)
@@ -366,11 +345,9 @@ class DiscordRPCServer:
                 self.active_window_timestamp = current_time
                 return window_activity
         
-        # Use browser data if fresh
         if self.browser_data and (current_time - self.browser_timestamp) < 10:
             return self.browser_data
         
-        # Fallback to cached
         if self.active_window_data and (current_time - self.active_window_timestamp) < 10:
             return self.active_window_data
 
@@ -388,7 +365,6 @@ class DiscordRPCServer:
                 self.last_rpc_state = None
             return
 
-        # For YouTube, ALWAYS update (timestamp changes)
         if activity['name'] in ['YouTube', 'YouTube Music']:
             self.start_time = int(time.time())
             rpc_data = {
@@ -405,7 +381,6 @@ class DiscordRPCServer:
                 print(f"❌ Error: {e}")
             return
         
-        # For Discord (BOTH web and PC app), ALWAYS update (channel changes)
         if activity['name'] in ['Discord', 'Discord Web']:
             self.start_time = int(time.time())
             rpc_data = {
@@ -422,7 +397,6 @@ class DiscordRPCServer:
                 print(f"❌ Error: {e}")
             return
         
-        # For other activities, only update if changed
         current_state = f"{activity['state']}"
         if current_state == self.last_rpc_state:
             return
@@ -445,7 +419,6 @@ class DiscordRPCServer:
             print(f"❌ Error: {e}")
 
     def monitor_loop(self):
-        # FAST polling - 100ms
         while True:
             try:
                 self.update_rpc()
@@ -504,7 +477,7 @@ def main():
 
     print("✅ Ready - All features enabled")
     print(f"✅ Discord blocklist: {BLOCKED_DISCORD}")
-    print("✅ Discord PC + Web instant channel updates")
+    print("✅ Discord PC + Web channel updates")
     print()
 
     flask_app.run(host='127.0.0.1', port=5000, debug=False, use_reloader=False)
