@@ -15,7 +15,6 @@
     let lastData = null;
     let tabVisible = true;
 
-    // Detect when tab becomes visible/hidden
     document.addEventListener('visibilitychange', function() {
         tabVisible = !document.hidden;
         console.log('[Tampermonkey] YouTube tab ' + (tabVisible ? 'focused' : 'hidden'));
@@ -81,7 +80,6 @@
             const title = document.title;
             const url = window.location.href;
 
-            // Store data regardless of tab visibility
             lastData = {
                 title: title,
                 url: url,
@@ -91,7 +89,6 @@
                 duration: duration
             };
 
-            // ONLY SEND if tab is visible (focused)
             if (tabVisible && chapter !== lastChapter) {
                 lastChapter = chapter;
                 console.log(`[Tampermonkey] Sending update (tab visible): Chapter: ${chapter || '(none)'}`);
@@ -118,10 +115,8 @@
         }
     }
 
-    // Check every 500ms
     setInterval(sendUpdate, 500);
 
-    // When tab becomes visible again, send one update
     document.addEventListener('visibilitychange', function() {
         if (!document.hidden && lastData) {
             console.log('[Tampermonkey] Tab refocused - sending stored data');
