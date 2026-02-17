@@ -53,10 +53,10 @@ class DiscordRPCServer:
         try:
             self.rpc = Presence(CLIENT_ID)
             self.rpc.connect()
-            print("[Discord RPC] ✅ Connected!")
+            print("[Discord RPC] Connected!")
             return True
         except Exception as e:
-            print(f"[Discord RPC] ❌ Failed: {e}")
+            print(f"[Discord RPC] Failed: {e}")
             return False
 
     def make_bio(self):
@@ -73,7 +73,7 @@ class DiscordRPCServer:
         unix_now = int(time.time())
         discord_timestamp = f"<t:{unix_now}:t>"
         
-        note = "If the clock stops, I'm probably touching grass or sleeping.\nBefore we talk, my personality is INTP-A."
+        note = "If the clock stops, I'm probably touching grass or sleeping."
         
         bio = f"{date_part} • {your_time} ( {discord_timestamp} )\n{note}"
         return bio[:190]
@@ -376,9 +376,9 @@ class DiscordRPCServer:
             }
             try:
                 self.rpc.update(**rpc_data)
-                print(f"✅ {activity['name']} | {activity['state']}")
+                print(f" {activity['name']} | {activity['state']}")
             except Exception as e:
-                print(f"❌ Error: {e}")
+                print(f" Error: {e}")
             return
         
         if activity['name'] in ['Discord', 'Discord Web']:
@@ -392,9 +392,9 @@ class DiscordRPCServer:
             }
             try:
                 self.rpc.update(**rpc_data)
-                print(f"✅ {activity['name']} | {activity['details']}")
+                print(f" {activity['name']} | {activity['details']}")
             except Exception as e:
-                print(f"❌ Error: {e}")
+                print(f" Error: {e}")
             return
         
         current_state = f"{activity['state']}"
@@ -414,9 +414,9 @@ class DiscordRPCServer:
 
         try:
             self.rpc.update(**rpc_data)
-            print(f"✅ {activity['name']} | {activity['state']}")
+            print(f" {activity['name']} | {activity['state']}")
         except Exception as e:
-            print(f"❌ Error: {e}")
+            print(f" Error: {e}")
 
     def monitor_loop(self):
         while True:
@@ -463,7 +463,7 @@ def status():
 
 def main():
     print("=" * 60)
-    print("Discord RPC - Universal Monitor")
+    print("Discord RPC Monitor")
     print("=" * 60)
     print()
 
@@ -475,9 +475,8 @@ def main():
     server.start_bio_updater()
     server.start_monitor()
 
-    print("✅ Ready - All features enabled")
-    print(f"✅ Discord blocklist: {BLOCKED_DISCORD}")
-    print("✅ Discord PC + Web channel updates")
+    print("Ready")
+    print(f" Discord blocklist: {BLOCKED_DISCORD}")
     print()
 
     flask_app.run(host='127.0.0.1', port=5000, debug=False, use_reloader=False)
